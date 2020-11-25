@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="templates/base.xhtml">
+            <ui:define name="header"></ui:define>
+            <ui:define name="content">
+                <h:form>
+                        <h:outputLabel value="#{cMsg['company.name']}"/>
+                        <c:forEach var="com" items="#{companyBean.companies}"></c:forEach>                              
+                </h:form>
+                <div class="container">                                 
+                            <h:dataTable var="company" value="#{companyBean.companies}" styleClass="table">
+                                <h:column>
+                                    <f:facet name="header">#{cMsg['company.name']}</f:facet>
+                                    #{company.name}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{cMsg['company.address']}</f:facet>
+                                    #{company.address}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{cMsg['company.contact']}</f:facet>
+                                    #{company.contact}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{cMsg['company.email']}</f:facet>
+                                    #{company.email}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{cMsg['company.website']}</f:facet>
+                                    #{company.website}
+                                </h:column>
+<!--                                <h:column>
+                                    <f:facet name="header"></f:facet>
+                                    <h:link value="Update" outcome="index?faces-redirect=true">
+                                        <f:param name="company_id" value="#{company_id}" />
+                                    </h:link>
+                                </h:column>-->
+                            </h:dataTable> 
+                    <h:link styleClass="btn btn-deep-orange" value="Add" outcome="index?faces-redirect=true"></h:link>
+                    <h:commandLink value="Xoa">
+                        <f:ajax listener="#{jobBean.deleteJob(job)}" 
+                                onevent="deleteSuccess" onerror="deleteError"></f:ajax>
+                    </h:commandLink>           
+                </div> 
+                <script>
+                    function deleteSuccess(){
+                        alert("Xoa thanh cong");
+                    }
+                    function deleteError(){
+                        alert("Xoa that bai");
+                    }
+                </script>
+            </ui:define>
+            <ui:define name="footer"></ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
